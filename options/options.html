@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Hub Companion — Settings</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1f2937;
+            background: #f9fafb;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .settings-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 32px;
+            max-width: 480px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0b1437;
+            margin-bottom: 4px;
+        }
+        .subtitle {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .help-text {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1f2937;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+        }
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-primary {
+            background: #3b82f6;
+            color: #ffffff;
+            flex: 1;
+        }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-test {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+        .btn-test:hover { background: #e5e7eb; }
+        .btn-disconnect {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        .btn-disconnect:hover { background: #fee2e2; }
+        .status {
+            margin-top: 16px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            display: none;
+        }
+        .status--success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; display: block; }
+        .status--error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; display: block; }
+        hr {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 24px 0;
+        }
+        .how-to {
+            margin-top: 24px;
+            padding: 16px;
+            background: #f0f7ff;
+            border-radius: 8px;
+            border: 1px solid #bdd8f2;
+        }
+        .how-to h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+        .how-to ol {
+            padding-left: 20px;
+            font-size: 12px;
+            color: #374151;
+            line-height: 1.8;
+        }
+        .how-to code {
+            background: #e5e7eb;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-card">
+        <h1>Delivery Hub Companion</h1>
+        <p class="subtitle">Connect to your Salesforce org to manage work items and log hours.</p>
+
+        <div class="form-group">
+            <label for="instance-url">Salesforce Instance URL</label>
+            <input id="instance-url" type="url" placeholder="https://myorg.my.salesforce.com">
+            <p class="help-text">Your Salesforce org URL (e.g., https://nimbasolutions.my.salesforce.com)</p>
+        </div>
+
+        <div class="form-group">
+            <label for="access-token">Access Token</label>
+            <input id="access-token" type="password" placeholder="Paste your access token here">
+            <p class="help-text">Get this from Salesforce CLI: <code>sf org display --target-org MyOrg --json</code></p>
+        </div>
+
+        <div class="form-group">
+            <label for="namespace">Package Namespace</label>
+            <select id="namespace">
+                <option value="delivery">delivery (managed package)</option>
+                <option value="">None (scratch org / unpackaged)</option>
+            </select>
+        </div>
+
+        <div class="btn-row">
+            <button id="btn-save" class="btn-primary">Save & Connect</button>
+            <button id="btn-test" class="btn-test">Test</button>
+        </div>
+
+        <div id="status" class="status"></div>
+
+        <hr>
+
+        <button id="btn-disconnect" class="btn-disconnect" style="width: 100%;">Disconnect</button>
+
+        <div class="how-to">
+            <h3>How to get your access token</h3>
+            <ol>
+                <li>Open your terminal</li>
+                <li>Run: <code>sf org display --target-org YourOrg --json</code></li>
+                <li>Copy the <code>accessToken</code> value</li>
+                <li>Paste it above and click Save</li>
+            </ol>
+            <p class="help-text" style="margin-top: 8px;">Tokens expire periodically. You'll need to refresh when they do.</p>
+        </div>
+    </div>
+
+    <script type="module" src="options.js"></script>
+</body>
+</html>

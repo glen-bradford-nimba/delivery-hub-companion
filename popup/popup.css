@@ -1,0 +1,348 @@
+/* Delivery Hub Companion — Popup Styles */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    width: 360px;
+    min-height: 440px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 13px;
+    color: #1f2937;
+    background: #ffffff;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 440px;
+}
+
+/* ── Header ── */
+.dh-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #0b1437;
+    color: #ffffff;
+}
+
+.dh-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dh-brand {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+}
+
+.dh-icon-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.15s;
+}
+.dh-icon-btn:hover {
+    color: #ffffff;
+    background: rgba(255,255,255,0.1);
+}
+
+/* ── Tabs ── */
+.dh-tabs {
+    display: flex;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.dh-tab {
+    flex: 1;
+    padding: 9px 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    transition: all 0.15s;
+    border-bottom: 2px solid transparent;
+}
+.dh-tab:hover {
+    color: #1f2937;
+    background: #f3f4f6;
+}
+.dh-tab--active {
+    color: #0b1437;
+    border-bottom-color: #3b82f6;
+    font-weight: 600;
+}
+
+/* ── Tab Content ── */
+.dh-tab-content {
+    flex: 1;
+    padding: 12px 14px;
+    overflow-y: auto;
+    max-height: 340px;
+}
+
+/* ── Items List ── */
+.dh-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dh-item-card {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    gap: 8px;
+}
+.dh-item-card:hover {
+    border-color: #3b82f6;
+    background: #f0f7ff;
+}
+
+.dh-item-priority {
+    width: 4px;
+    height: 28px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+.dh-item-priority--High   { background: #ef4444; }
+.dh-item-priority--Medium { background: #f59e0b; }
+.dh-item-priority--Low    { background: #22c55e; }
+
+.dh-item-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.dh-item-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #3b82f6;
+}
+
+.dh-item-desc {
+    font-size: 12px;
+    color: #374151;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dh-item-meta {
+    font-size: 10px;
+    color: #9ca3af;
+    margin-top: 2px;
+}
+
+.dh-item-stage {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    background: #e5e7eb;
+    color: #4b5563;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+/* ── Forms ── */
+.dh-form-group {
+    margin-bottom: 10px;
+}
+
+.dh-form-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.dh-input, .dh-select, .dh-textarea {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #1f2937;
+    background: #ffffff;
+    transition: border-color 0.15s;
+}
+.dh-input:focus, .dh-select:focus, .dh-textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59,130,246,0.15);
+}
+
+.dh-textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* ── Buttons ── */
+.dh-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.dh-btn-primary {
+    background: #3b82f6;
+    color: #ffffff;
+}
+.dh-btn-primary:hover {
+    background: #2563eb;
+}
+.dh-btn-primary:disabled {
+    background: #93c5fd;
+    cursor: not-allowed;
+}
+
+.dh-btn-full {
+    width: 100%;
+}
+
+/* ── Voice ── */
+.dh-voice-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0 16px;
+}
+
+.dh-mic-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #3b82f6;
+    background: #eff6ff;
+    color: #3b82f6;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.dh-mic-btn:hover {
+    background: #dbeafe;
+    transform: scale(1.05);
+}
+.dh-mic-btn--active {
+    background: #ef4444;
+    border-color: #dc2626;
+    color: #ffffff;
+    animation: dh-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes dh-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+
+.dh-voice-status {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.dh-transcript {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f3f4f6;
+    border-radius: 6px;
+}
+.dh-transcript label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #9ca3af;
+    font-weight: 600;
+}
+.dh-transcript p {
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #1f2937;
+}
+
+/* ── Status messages ── */
+.dh-status {
+    margin-top: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+.dh-status--success {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+.dh-status--error {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* ── Empty state ── */
+.dh-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.dh-empty-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #374151;
+    margin: 12px 0 4px;
+}
+
+.dh-empty-text {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+/* ── Loading ── */
+.dh-loading {
+    text-align: center;
+    padding: 30px 0;
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+/* ── Footer ── */
+.dh-footer {
+    padding: 8px 14px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+}
+.dh-footer a {
+    font-size: 11px;
+    color: #9ca3af;
+    text-decoration: none;
+}
+.dh-footer a:hover {
+    color: #3b82f6;
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Hub Companion</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <div class="dh-header">
+            <div class="dh-logo">
+                <img src="../icons/icon-32.png" alt="" width="20" height="20">
+                <span class="dh-brand">Delivery Hub</span>
+            </div>
+            <button id="btn-settings" class="dh-icon-btn" title="Settings">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Not connected state -->
+        <div id="view-connect" class="dh-view" style="display: none;">
+            <div class="dh-empty-state">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5">
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 14v-4m0-4h.01"/>
+                </svg>
+                <p class="dh-empty-title">Not Connected</p>
+                <p class="dh-empty-text">Connect to your Salesforce org in Settings to get started.</p>
+                <button id="btn-go-settings" class="dh-btn dh-btn-primary">Open Settings</button>
+            </div>
+        </div>
+
+        <!-- Main tabbed view -->
+        <div id="view-main" class="dh-view" style="display: none;">
+            <!-- Tab bar -->
+            <div class="dh-tabs">
+                <button class="dh-tab dh-tab--active" data-tab="items">My Items</button>
+                <button class="dh-tab" data-tab="log">Quick Log</button>
+                <button class="dh-tab" data-tab="voice">Voice Note</button>
+            </div>
+
+            <!-- Tab: My Items -->
+            <div id="tab-items" class="dh-tab-content">
+                <div id="items-loading" class="dh-loading">Loading work items...</div>
+                <div id="items-list" class="dh-items-list"></div>
+                <div id="items-empty" class="dh-empty-state" style="display: none;">
+                    <p class="dh-empty-text">No active work items found.</p>
+                </div>
+            </div>
+
+            <!-- Tab: Quick Log -->
+            <div id="tab-log" class="dh-tab-content" style="display: none;">
+                <div class="dh-form-group">
+                    <label for="log-item">Work Item</label>
+                    <select id="log-item" class="dh-select"></select>
+                </div>
+                <div class="dh-form-group">
+                    <label for="log-hours">Hours</label>
+                    <input id="log-hours" type="number" min="0.25" step="0.25" value="1" class="dh-input">
+                </div>
+                <div class="dh-form-group">
+                    <label for="log-notes">Notes</label>
+                    <textarea id="log-notes" rows="3" class="dh-textarea" placeholder="What did you work on?"></textarea>
+                </div>
+                <button id="btn-log-submit" class="dh-btn dh-btn-primary dh-btn-full">Log Hours</button>
+                <div id="log-status" class="dh-status" style="display: none;"></div>
+            </div>
+
+            <!-- Tab: Voice Note -->
+            <div id="tab-voice" class="dh-tab-content" style="display: none;">
+                <div class="dh-voice-area">
+                    <button id="btn-mic" class="dh-mic-btn" title="Start recording">
+                        <svg id="mic-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="1" width="6" height="12" rx="3"/>
+                            <path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/>
+                        </svg>
+                    </button>
+                    <p id="voice-status" class="dh-voice-status">Tap to start dictating</p>
+                </div>
+                <div id="voice-transcript" class="dh-transcript" style="display: none;">
+                    <label>Transcript</label>
+                    <p id="voice-text"></p>
+                </div>
+                <div id="voice-controls" style="display: none;">
+                    <div class="dh-form-group">
+                        <label for="voice-priority">Priority</label>
+                        <select id="voice-priority" class="dh-select">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                    <button id="btn-voice-create" class="dh-btn dh-btn-primary dh-btn-full">Create Work Item</button>
+                </div>
+                <div id="voice-result" class="dh-status" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="dh-footer">
+            <a href="https://cloudnimbusllc.com/delivery-hub" target="_blank" rel="noopener">cloudnimbusllc.com</a>
+        </div>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+</body>
+</html>
