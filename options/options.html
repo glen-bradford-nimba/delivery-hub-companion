@@ -22,11 +22,35 @@
             max-width: 480px;
             width: 100%;
         }
+        .settings-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
         h1 {
             font-size: 20px;
             font-weight: 700;
             color: #0b1437;
-            margin-bottom: 4px;
+        }
+        .connected-badge {
+            display: none;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #065f46;
+        }
+        .connected-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
         }
         .subtitle {
             font-size: 13px;
@@ -57,11 +81,12 @@
             border-radius: 8px;
             font-size: 14px;
             color: #1f2937;
+            transition: border-color 0.15s;
         }
         input:focus, select:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+            border-color: #0d9488;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
         }
         .btn-row {
             display: flex;
@@ -77,31 +102,60 @@
             cursor: pointer;
             transition: all 0.15s;
         }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
         .btn-primary {
-            background: #3b82f6;
+            background: #0d9488;
             color: #ffffff;
             flex: 1;
         }
-        .btn-primary:hover { background: #2563eb; }
+        .btn-primary:hover:not(:disabled) { background: #0f766e; }
         .btn-test {
             background: #f3f4f6;
             color: #4b5563;
         }
-        .btn-test:hover { background: #e5e7eb; }
+        .btn-test:hover:not(:disabled) { background: #e5e7eb; }
         .btn-disconnect {
             background: #fef2f2;
             color: #991b1b;
         }
         .btn-disconnect:hover { background: #fee2e2; }
+        .disconnect-confirm {
+            display: none;
+            margin-top: 8px;
+            padding: 10px 14px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #991b1b;
+        }
+        .disconnect-confirm-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .disconnect-confirm-actions button {
+            padding: 6px 14px;
+            font-size: 12px;
+        }
+        .btn-cancel {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
         .status {
             margin-top: 16px;
             padding: 10px 14px;
             border-radius: 8px;
             font-size: 13px;
             display: none;
+            line-height: 1.4;
         }
         .status--success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; display: block; }
         .status--error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; display: block; }
+        .status--info { background: #f0fdfa; color: #115e59; border: 1px solid #99f6e4; display: block; }
         hr {
             border: none;
             border-top: 1px solid #e5e7eb;
@@ -110,14 +164,14 @@
         .how-to {
             margin-top: 24px;
             padding: 16px;
-            background: #f0f7ff;
+            background: #f0fdfa;
             border-radius: 8px;
-            border: 1px solid #bdd8f2;
+            border: 1px solid #99f6e4;
         }
         .how-to h3 {
             font-size: 13px;
             font-weight: 700;
-            color: #1e40af;
+            color: #0f766e;
             margin-bottom: 8px;
         }
         .how-to ol {
@@ -136,7 +190,10 @@
 </head>
 <body>
     <div class="settings-card">
-        <h1>Delivery Hub Companion</h1>
+        <div class="settings-header">
+            <h1>Delivery Hub Companion</h1>
+            <span id="connected-badge" class="connected-badge">Connected</span>
+        </div>
         <p class="subtitle">Connect to your Salesforce org to manage work items and log hours.</p>
 
         <div class="form-group">
@@ -169,16 +226,23 @@
         <hr>
 
         <button id="btn-disconnect" class="btn-disconnect" style="width: 100%;">Disconnect</button>
+        <div id="disconnect-confirm" class="disconnect-confirm">
+            This will remove your saved access token. Are you sure?
+            <div class="disconnect-confirm-actions">
+                <button id="btn-confirm-disconnect" class="btn-disconnect">Yes, Disconnect</button>
+                <button id="btn-cancel-disconnect" class="btn-cancel">Cancel</button>
+            </div>
+        </div>
 
         <div class="how-to">
             <h3>How to get your access token</h3>
             <ol>
                 <li>Open your terminal</li>
                 <li>Run: <code>sf org display --target-org YourOrg --json</code></li>
-                <li>Copy the <code>accessToken</code> value</li>
-                <li>Paste it above and click Save</li>
+                <li>Copy the <code>accessToken</code> value from the JSON output</li>
+                <li>Paste it above and click <strong>Save & Connect</strong></li>
             </ol>
-            <p class="help-text" style="margin-top: 8px;">Tokens expire periodically. You'll need to refresh when they do.</p>
+            <p class="help-text" style="margin-top: 8px;">Tokens expire periodically. You'll need to refresh when they do. The extension will notify you when your session expires.</p>
         </div>
     </div>
 

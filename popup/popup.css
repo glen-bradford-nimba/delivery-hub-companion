@@ -23,7 +23,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 10px 14px;
-    background: #0b1437;
+    background: linear-gradient(135deg, #0b1437 0%, #1e3a5f 100%);
     color: #ffffff;
 }
 
@@ -39,18 +39,49 @@ body {
     letter-spacing: -0.01em;
 }
 
+.dh-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
 .dh-icon-btn {
     background: none;
     border: none;
     color: rgba(255,255,255,0.7);
     cursor: pointer;
-    padding: 4px;
+    padding: 5px;
     border-radius: 4px;
     transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .dh-icon-btn:hover {
     color: #ffffff;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.12);
+}
+
+/* Refresh spin animation */
+.dh-spin svg {
+    animation: dh-spin 0.8s linear infinite;
+}
+@keyframes dh-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ── Offline Banner ── */
+.dh-offline-banner {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 11px;
+    font-weight: 500;
+    border-bottom: 1px solid #fde68a;
 }
 
 /* ── Tabs ── */
@@ -78,7 +109,7 @@ body {
 }
 .dh-tab--active {
     color: #0b1437;
-    border-bottom-color: #3b82f6;
+    border-bottom-color: #0d9488;
     font-weight: 600;
 }
 
@@ -108,8 +139,13 @@ body {
     gap: 8px;
 }
 .dh-item-card:hover {
-    border-color: #3b82f6;
-    background: #f0f7ff;
+    border-color: #0d9488;
+    background: #f0fdfa;
+}
+.dh-item-card:focus {
+    outline: none;
+    border-color: #0d9488;
+    box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
 }
 
 .dh-item-priority {
@@ -130,7 +166,7 @@ body {
 .dh-item-name {
     font-size: 11px;
     font-weight: 700;
-    color: #3b82f6;
+    color: #0d9488;
 }
 
 .dh-item-desc {
@@ -147,6 +183,11 @@ body {
     margin-top: 2px;
 }
 
+.dh-over-budget {
+    color: #ef4444;
+    font-weight: 600;
+}
+
 .dh-item-stage {
     font-size: 10px;
     padding: 1px 6px;
@@ -155,6 +196,26 @@ body {
     color: #4b5563;
     font-weight: 500;
     flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* ── Items Error ── */
+.dh-items-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 12px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #991b1b;
+    line-height: 1.4;
+}
+.dh-items-error svg {
+    flex-shrink: 0;
+    margin-top: 1px;
 }
 
 /* ── Forms ── */
@@ -184,13 +245,14 @@ body {
 }
 .dh-input:focus, .dh-select:focus, .dh-textarea:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59,130,246,0.15);
+    border-color: #0d9488;
+    box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.15);
 }
 
 .dh-textarea {
     resize: vertical;
     min-height: 60px;
+    font-family: inherit;
 }
 
 /* ── Buttons ── */
@@ -205,14 +267,19 @@ body {
 }
 
 .dh-btn-primary {
-    background: #3b82f6;
+    background: #0d9488;
     color: #ffffff;
 }
 .dh-btn-primary:hover {
-    background: #2563eb;
+    background: #0f766e;
+}
+.dh-btn-primary:active {
+    background: #115e59;
+    transform: scale(0.98);
 }
 .dh-btn-primary:disabled {
-    background: #93c5fd;
+    background: #99f6e4;
+    color: rgba(255,255,255,0.7);
     cursor: not-allowed;
 }
 
@@ -232,9 +299,9 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 2px solid #3b82f6;
-    background: #eff6ff;
-    color: #3b82f6;
+    border: 2px solid #0d9488;
+    background: #f0fdfa;
+    color: #0d9488;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -242,7 +309,7 @@ body {
     transition: all 0.2s;
 }
 .dh-mic-btn:hover {
-    background: #dbeafe;
+    background: #ccfbf1;
     transform: scale(1.05);
 }
 .dh-mic-btn--active {
@@ -250,6 +317,14 @@ body {
     border-color: #dc2626;
     color: #ffffff;
     animation: dh-pulse 1.5s ease-in-out infinite;
+}
+.dh-mic-btn--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.dh-mic-btn--disabled:hover {
+    transform: none;
+    background: #f0fdfa;
 }
 
 @keyframes dh-pulse {
@@ -282,12 +357,13 @@ body {
     color: #1f2937;
 }
 
-/* ── Status messages ── */
+/* ── Status Messages ── */
 .dh-status {
     margin-top: 10px;
     padding: 8px 10px;
     border-radius: 6px;
     font-size: 12px;
+    line-height: 1.4;
 }
 .dh-status--success {
     background: #ecfdf5;
@@ -299,8 +375,18 @@ body {
     color: #991b1b;
     border: 1px solid #fecaca;
 }
+.dh-status--warning {
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+.dh-status--info {
+    background: #f0fdfa;
+    color: #115e59;
+    border: 1px solid #99f6e4;
+}
 
-/* ── Empty state ── */
+/* ── Empty State ── */
 .dh-empty-state {
     display: flex;
     flex-direction: column;
@@ -326,17 +412,35 @@ body {
 
 /* ── Loading ── */
 .dh-loading {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 30px 0;
     color: #9ca3af;
     font-size: 12px;
 }
 
+.dh-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #e5e7eb;
+    border-top-color: #0d9488;
+    border-radius: 50%;
+    animation: dh-spin 0.6s linear infinite;
+}
+
 /* ── Footer ── */
 .dh-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 8px 14px;
     border-top: 1px solid #e5e7eb;
-    text-align: center;
+}
+.dh-footer-version {
+    font-size: 10px;
+    color: #d1d5db;
 }
 .dh-footer a {
     font-size: 11px;
@@ -344,5 +448,5 @@ body {
     text-decoration: none;
 }
 .dh-footer a:hover {
-    color: #3b82f6;
+    color: #0d9488;
 }
